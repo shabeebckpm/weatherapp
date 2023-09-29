@@ -14,7 +14,7 @@ class _GraphScreenState extends State<GraphScreen> {
     Feature(
       title: "Temperature",
       color: Colors.blue,
-      data: [0.2, 0.3, 0.4, 0.4, 0.3, 0.3,0.4],
+      data: [0.2, 0.3, 0.4, 0.4, 0.3, 0.3,0.5],
     ),
    
   ];
