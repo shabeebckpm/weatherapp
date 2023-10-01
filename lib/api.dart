@@ -35,7 +35,10 @@ class WeatherScreen extends ChangeNotifier {
     String olddate = prefs.getString('date') ?? '';
     String olddataString = prefs.getString('weatherData') ?? '';
     if (olddate == todaydate || olddataString.isNotEmpty) {
-      data = welcomeFromMap(((json.decode(olddataString))));
+    //  data = welcomeFromMap(((json.decode(olddataString))));
+      final bh=await jsonDecode(prefs.getString('weatherData')!);
+      data=Welcome.fromMap(bh);
+
      // print(olddataString);
       notifyListeners();
     } else {
