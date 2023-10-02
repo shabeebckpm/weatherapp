@@ -39,8 +39,8 @@ int flag=0;
     double screenWidth = MediaQuery.of(context).size.width;
     double screenheigt = MediaQuery.of(context).size.height;
     String mydate=DateFormat('EEE, M/d/y hh:mm a').format(DateTime.now());
-
-final sharedProvider = Provider.of<DarkThemePreference>(context,);
+    final sharedProvider = Provider.of<DarkThemePreference>(context);
+    sharedProvider.startTimerToUpdateTheme();
     // sharedProvider.saveValuesToSharedPreferences(context);
     // sharedProvider.loadValuesFromSharedPreferences();
   //sharedProvider.changetheme(mylight: mylight,mysecondlight: mysecondlight);
@@ -68,7 +68,7 @@ final weatherobj = Provider.of<WeatherScreen>(context);
               children: [
                 IconButton(
                   onPressed: () {
-                    sharedProvider.mytheme(mylight);
+                    sharedProvider.theme(mylight);
 
                   },
                   icon: Icon(
@@ -78,7 +78,7 @@ final weatherobj = Provider.of<WeatherScreen>(context);
                 ),
                 IconButton(
                     onPressed: () {
-                      sharedProvider.mytheme(mysecondlight);
+                      sharedProvider.theme(mysecondlight);
                     // themeChange.darkTheme=true;
                     },
                     icon: Icon(

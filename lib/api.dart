@@ -33,11 +33,13 @@ class WeatherScreen extends ChangeNotifier {
   check(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String olddate = prefs.getString('date') ?? '';
-    String olddataString = prefs.getString('weatherData') ?? '';
-    if (olddate == todaydate || olddataString.isNotEmpty) {
+   //String olddataString = prefs.getString('weath') ?? '';
+    if (olddate == todaydate) {
     //  data = welcomeFromMap(((json.decode(olddataString))));
-      final bh=await jsonDecode(prefs.getString('weatherData')!);
-      data=Welcome.fromMap(bh);
+
+      final bh = await json.decode(prefs.getString('weath')!);
+      data = Welcome.fromMap(bh);
+      //data=Welcome.fromMap(bh);
 
      // print(olddataString);
       notifyListeners();
@@ -45,7 +47,7 @@ class WeatherScreen extends ChangeNotifier {
       await CheckUserConnection();
       if (activeConnection == true) {
         print('called');
-        getCurrentLocation(context);
+        handleLocationPermission(context);
         print('object');
         notifyListeners();
       }
@@ -136,16 +138,19 @@ class WeatherScreen extends ChangeNotifier {
    SharedPreferences prefs = await SharedPreferences.getInstance();
 
      if (response.statusCode == 200) {
-      data = welcomeFromMap(response.body);
+      final jk = json.decode(response.body);
+       data = Welcome.fromMap(jk);
+       print(data);
       await prefs.setString('date', todaydate);
 
-      Map<String, dynamic> datastring = jsonDecode(welcomeToMap(data!));
-      final weatherEncode = jsonEncode(datastring);
-      prefs.setString('weatherData', json.encode(weatherEncode));
+    //  Map<String, dynamic> datastring = jsonDecode(welcomeToMap(data!));
+     // final weatherEncode = jsonEncode(datastring);
+     prefs.setString('weath',json.encode(jk));
+      print(jk);
+      //prefs.setString('weatherData', weatherEncode);
       notifyListeners();
     } else {
       print('Failed to fetch weather data');
-      notifyListeners();
     }
 
   }
@@ -157,14 +162,16 @@ class WeatherScreen extends ChangeNotifier {
    SharedPreferences prefs = await SharedPreferences.getInstance();
 
     if (response.statusCode == 200) {
-       data = welcomeFromMap(response.body);
+      final jk = json.decode(response.body);
+       data = Welcome.fromMap(jk);
        print(data);
       await prefs.setString('date', todaydate);
 
-      Map<String, dynamic> datastring = jsonDecode(welcomeToMap(data!));
-      final weatherEncode = jsonEncode(datastring);
-      print(weatherEncode);
-      prefs.setString('weatherData', weatherEncode);
+    //  Map<String, dynamic> datastring = jsonDecode(welcomeToMap(data!));
+     // final weatherEncode = jsonEncode(datastring);
+     prefs.setString('weath',json.encode(jk));
+      print(jk);
+      //prefs.setString('weatherData', weatherEncode);
       notifyListeners();
     } else {
       print('Failed to fetch weather data');
