@@ -8,7 +8,7 @@ class DarkThemePreference extends ChangeNotifier {
     updateThemeBasedOnTime();
     startTimerToUpdateTheme();
   }
-  bool light = false;
+  bool light = true;
   Timer? timer;
   void startTimerToUpdateTheme() {
     const duration = Duration(seconds: 1);
